@@ -122,6 +122,9 @@ python manage.py createsuperuser
 ```
 URL: /admin
 ---
+# 👩‍💻 Author
 
-### Noor Huda
-💻 Django Developer • React.js Developer • AI/ML Enthusiast
+**Noor Huda**  
+Django Developer • React.js Developer • AI/ML Enthusiast
+
+---
