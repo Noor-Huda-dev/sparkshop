@@ -12,7 +12,7 @@
 
 <br><br>
 
-<a href="https://github.com/Noor-Huda-dev/sparkshop">
+<a href="https://github.com/Noor-Huda-dev">
   <img src="https://img.shields.io/badge/📂 GitHub Repo-Source Code-black?style=for-the-badge&logo=github" />
 </a>
 
