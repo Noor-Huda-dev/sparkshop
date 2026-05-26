@@ -5,7 +5,6 @@
 <img src="https://img.shields.io/badge/Django-3.2-green?style=for-the-badge&logo=django" />
 <img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python" />
 <img src="https://img.shields.io/badge/Status-Completed-success?style=for-the-badge" />
-<img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" />
 
 <br><br>
 
@@ -13,11 +12,7 @@
 
 <br><br>
 
-<a href="https://your-live-demo-link.com">
-  <img src="https://img.shields.io/badge/🌐 Live Demo-Click Here-blue?style=for-the-badge" />
-</a>
-
-<a href="https://github.com/your-username/sparkshop">
+<a href="https://github.com/Noor-Huda-dev/sparkshop">
   <img src="https://img.shields.io/badge/📂 GitHub Repo-Source Code-black?style=for-the-badge&logo=github" />
 </a>
 
@@ -110,6 +105,8 @@ git clone https://github.com/your-username/sparkshop.git
 cd sparkshop
 
 python -m venv venv
+
+# Windows
 venv\Scripts\activate
 
 pip install -r requirements.txt
@@ -117,22 +114,14 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
-### 🔐 Admin Access
+
+## 🔐 Admin Access
 
 ```bash
 python manage.py createsuperuser
 ```
 URL: /admin
 ---
-
-### 📊 GitHub Stats
-<div align="center"> <img src="https://github-readme-stats.vercel.app/api?username=your-username&show_icons=true&theme=tokyonight" /> <img src="https://github-readme-streak-stats.herokuapp.com/?user=your-username&theme=tokyonight" /> </div>
-🌟 Future Improvements
-💳 Payment Gateway Integration
-🔍 Advanced Search & Filters
-⭐ Reviews & Ratings
-🚚 Order Tracking System
-👨‍💻 Developer
 
 ### Noor Huda
 💻 Django Developer • React.js Developer • AI/ML Enthusiast
