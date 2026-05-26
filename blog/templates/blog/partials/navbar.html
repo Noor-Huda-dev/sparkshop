@@ -1,0 +1,180 @@
+{% load static %}
+
+<!-- ====================== NAVBAR START ====================== -->
+
+<nav class="navbar navbar-expand-lg"
+     style="
+        background:#ffffff;
+        padding:14px 0;
+        box-shadow:0 2px 20px rgba(0,0,0,0.08);
+        position:sticky;
+        top:0;
+        z-index:999;
+     ">
+
+    <div class="container px-4 px-lg-5">
+
+        <!-- ================= LOGO ================= -->
+
+        <a class="navbar-brand"
+           href="{% url 'blog:home' %}"
+
+           style="
+                font-size:30px;
+                font-weight:800;
+                color:#111827;
+                letter-spacing:0.5px;
+                display:flex;
+                align-items:center;
+                gap:8px;
+           ">
+
+            <i class="fas fa-bolt"
+               style="
+                    color:#2563eb;
+                    font-size:28px;
+               ">
+            </i>
+
+            <span>
+                Spark<span style="color:#2563eb;">Shop</span>
+            </span>
+
+        </a>
+
+        <!-- ================= MOBILE BUTTON ================= -->
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+
+                style="
+                    border:none;
+                    outline:none;
+                    box-shadow:none;
+                ">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <div class="collapse navbar-collapse justify-content-end"
+             id="navbarSupportedContent">
+
+            <div style="
+                    display:flex;
+                    align-items:center;
+                    gap:20px;
+                 ">
+
+                <!-- ================= CART ================= -->
+
+                <a href="{% url 'blog:cart' %}"
+
+                   style="
+                        position:relative;
+                        width:48px;
+                        height:48px;
+                        border-radius:50%;
+                        background:#f3f4f6;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#111827;
+                        font-size:20px;
+                        transition:0.3s;
+                        text-decoration:none;
+                   "
+
+                   onmouseover="
+                        this.style.background='#2563eb';
+                        this.style.color='#fff';
+                        this.style.transform='translateY(-2px)';
+                   "
+
+                   onmouseout="
+                        this.style.background='#f3f4f6';
+                        this.style.color='#111827';
+                        this.style.transform='translateY(0px)';
+                   ">
+
+                    <i class="fas fa-shopping-bag"></i>
+
+                    <!-- CART COUNT -->
+
+                    {% if order_items_count > 0 %}
+
+                    <span style="
+                            position:absolute;
+                            top:-5px;
+                            right:-5px;
+                            background:#2563eb;
+                            color:#fff;
+                            min-width:22px;
+                            height:22px;
+                            border-radius:50%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:12px;
+                            font-weight:700;
+                            padding:2px;
+                            border:2px solid #fff;
+                         ">
+
+                        {{ order_items_count }}
+
+                    </span>
+
+                    {% endif %}
+
+                </a>
+
+                <!-- ================= PROFILE ================= -->
+
+                <a href="{% url 'blog:account' %}"
+
+                   style="
+                        width:48px;
+                        height:48px;
+                        border-radius:50%;
+                        overflow:hidden;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border:2px solid #e5e7eb;
+                        transition:0.3s;
+                   "
+
+                   onmouseover="
+                        this.style.transform='scale(1.08)';
+                        this.style.border='2px solid #2563eb';
+                   "
+
+                   onmouseout="
+                        this.style.transform='scale(1)';
+                        this.style.border='2px solid #e5e7eb';
+                   ">
+
+                    <img src="{% static 'images/avatar.png' %}"
+
+                         style="
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
+                         ">
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ====================== NAVBAR END ====================== -->

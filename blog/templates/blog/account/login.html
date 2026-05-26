@@ -1,0 +1,58 @@
+{% extends 'blog/parents/base.html' %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+<!-- Optionally load Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-dark text-white text-center py-4 rounded-top-4 position-relative">
+                <h3 class="mb-0">
+                    <i class="fas fa-user-lock me-2"></i> Login to Your Account
+                </h3>
+            </div>
+            
+            <div class="card-body p-4">
+                <form method="POST" id="loginForm" autocomplete="off">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="uname1" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" id="uname1" required>
+                        <div class="invalid-feedback">Please enter your username or email</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pwd1" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="pwd1" required autocomplete="new-password">
+                        <div class="invalid-feedback">Please enter a password</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'blog:register' %}" class="text-decoration-none small">
+                            Don't have an account?
+                        </a>
+                        <button type="submit" class="btn btn-dark px-4">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,316 @@
+{% extends 'blog/parents/base.html' %}
+{% load blog_tags %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    {% include 'blog/partials/header.html' %}
+
+    <!-- ================= PRODUCTS SECTION START ================= -->
+
+    <section style="
+            padding:80px 0;
+            background:#f8fafc;
+    ">
+
+        <div class="container px-4 px-lg-5">
+
+            <!-- SECTION TITLE -->
+
+            <div class="text-center mb-5">
+
+                <h2 style="
+                        font-size:42px;
+                        font-weight:800;
+                        color:#111827;
+                        margin-bottom:15px;
+                   ">
+
+                    Trending Products
+
+                </h2>
+
+                <p style="
+                        color:#6b7280;
+                        font-size:17px;
+                        max-width:700px;
+                        margin:auto;
+                   ">
+
+                    Discover our latest fashion collection with premium quality,
+                    modern style, and unbeatable prices.
+
+                </p>
+
+            </div>
+
+            <!-- PRODUCTS GRID -->
+
+            <div class="row g-4 justify-content-center">
+
+                {% for product in products %}
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+
+                        <!-- PRODUCT CARD -->
+
+                        <div style="
+                                background:#ffffff;
+                                border-radius:22px;
+                                overflow:hidden;
+                                position:relative;
+                                transition:0.4s;
+                                height:100%;
+                                box-shadow:0 10px 30px rgba(0,0,0,0.06);
+                           "
+
+                           onmouseover="
+                                this.style.transform='translateY(-8px)';
+                                this.style.boxShadow='0 20px 40px rgba(0,0,0,0.12)';
+                           "
+
+                           onmouseout="
+                                this.style.transform='translateY(0px)';
+                                this.style.boxShadow='0 10px 30px rgba(0,0,0,0.06)';
+                           ">
+
+                            <!-- SALE BADGE -->
+
+                            {% if product.offPrice %}
+
+                                <div style="
+                                        position:absolute;
+                                        top:15px;
+                                        right:15px;
+                                        background:#ef4444;
+                                        color:#fff;
+                                        padding:7px 14px;
+                                        border-radius:50px;
+                                        font-size:12px;
+                                        font-weight:700;
+                                        z-index:5;
+                                   ">
+
+                                    SALE
+
+                                </div>
+
+                            {% endif %}
+
+                            <!-- PRODUCT IMAGE -->
+
+                            <a href="{{ product.get_absolute_url }}">
+
+                                <div style="
+                                        overflow:hidden;
+                                        background:#f3f4f6;
+                                   ">
+
+                                    <img src="{{ product.image.url }}"
+                                         alt="{{ product.title }}"
+
+                                         style="
+                                            width:100%;
+                                            height:300px;
+                                            object-fit:cover;
+                                            transition:0.5s;
+                                         "
+
+                                         onmouseover="
+                                            this.style.transform='scale(1.08)';
+                                         "
+
+                                         onmouseout="
+                                            this.style.transform='scale(1)';
+                                         ">
+
+                                </div>
+
+                            </a>
+
+                            <!-- PRODUCT CONTENT -->
+
+                            <div style="
+                                    padding:22px;
+                               ">
+
+                                <!-- PRODUCT TITLE -->
+
+                                <h5 style="
+                                        font-size:20px;
+                                        font-weight:700;
+                                        color:#111827;
+                                        margin-bottom:15px;
+                                        min-height:50px;
+                                   ">
+
+                                    {{ product.title }}
+
+                                </h5>
+
+                                <!-- PRICE -->
+
+                                <div style="
+                                        margin-bottom:22px;
+                                        font-size:20px;
+                                        font-weight:700;
+                                   ">
+
+                                    {% if product.offPrice %}
+
+                                        <span style="
+                                                color:#9ca3af;
+                                                text-decoration:line-through;
+                                                margin-right:10px;
+                                                font-size:17px;
+                                           ">
+
+                                            ${{ product.price }}
+
+                                        </span>
+
+                                        <span style="
+                                                color:#2563eb;
+                                           ">
+
+                                            ${{ product.offPrice }}
+
+                                        </span>
+
+                                    {% else %}
+
+                                        <span style="
+                                                color:#2563eb;
+                                           ">
+
+                                            ${{ product.price }}
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                                <!-- BUTTONS -->
+
+                                <div style="
+                                        display:flex;
+                                        flex-direction:column;
+                                        gap:12px;
+                                   ">
+
+                                    <!-- VIEW PRODUCT -->
+
+                                    <a href="{{ product.get_absolute_url }}"
+
+                                       style="
+                                            width:100%;
+                                            height:48px;
+                                            background:#111827;
+                                            color:#fff;
+                                            border-radius:12px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            text-decoration:none;
+                                            font-weight:600;
+                                            transition:0.3s;
+                                       "
+
+                                       onmouseover="
+                                            this.style.background='#2563eb';
+                                       "
+
+                                       onmouseout="
+                                            this.style.background='#111827';
+                                       ">
+
+                                        <i class="fas fa-eye me-2"></i>
+
+                                        View Product
+
+                                    </a>
+
+                                    <!-- ADD TO CART -->
+
+                                    <a class="update-item"
+                                       data-product="{{ product.id }}"
+                                       data-action="add"
+
+                                       {% if not request.user.authentication %}
+                                       href="{% url 'blog:login' %}"
+                                       {% endif %}
+
+                                       style="
+                                            width:100%;
+                                            height:48px;
+                                            background:#eff6ff;
+                                            color:#2563eb;
+                                            border:2px solid #bfdbfe;
+                                            border-radius:12px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            text-decoration:none;
+                                            font-weight:700;
+                                            cursor:pointer;
+                                            transition:0.3s;
+                                       "
+
+                                       onmouseover="
+                                            this.style.background='#2563eb';
+                                            this.style.color='#fff';
+                                       "
+
+                                       onmouseout="
+                                            this.style.background='#eff6ff';
+                                            this.style.color='#2563eb';
+                                       ">
+
+                                        <i class="fas fa-cart-plus me-2"></i>
+
+                                        Add To Cart
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= PRODUCTS SECTION END ================= -->
+
+
+    <!-- PAGINATION -->
+
+    {% include 'blog/partials/pagination.html' with page=products %}
+
+    <!-- TOP PRODUCTS -->
+
+    {% show_top_products %}
+
+    <hr style="
+            border:none;
+            height:1px;
+            background:#e5e7eb;
+            margin:70px 0;
+       ">
+
+    <!-- MOST VIEWED -->
+
+    {% show_most_viewed_products %}
+
+{% endblock %}

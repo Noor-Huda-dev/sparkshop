@@ -1,0 +1,58 @@
+<nav aria-label="Pagination" style="margin-top:40px;">
+    <ul class="pagination justify-content-center" style="gap:6px;">
+
+        {% if page.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page.previous_page_number }}"
+               style="border-radius:10px; padding:8px 14px;">
+                ← Prev
+            </a>
+        </li>
+        {% endif %}
+
+        {% for p in page.paginator.page_range %}
+
+            {% if p == page.number %}
+            <li class="page-item active">
+                <a class="page-link"
+                   href="?page={{ p }}"
+                   style="
+                        background:#111827;
+                        color:#fff;
+                        border-radius:10px;
+                        padding:8px 14px;
+                        border:none;
+                   ">
+                    {{ p }}
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="?page={{ p }}"
+                   style="
+                        border-radius:10px;
+                        padding:8px 14px;
+                        color:#111827;
+                        border:1px solid #e5e7eb;
+                   ">
+                    {{ p }}
+                </a>
+            </li>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if page.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page.next_page_number }}"
+               style="border-radius:10px; padding:8px 14px;">
+                Next →
+            </a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>

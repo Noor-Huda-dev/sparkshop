@@ -1,0 +1,66 @@
+{% extends 'blog/parents/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block head %}
+<!-- Optionally include Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-dark text-white text-center py-4 rounded-top-4">
+                <h3 class="mb-0">
+                    <i class="fas fa-user-plus me-2"></i> Create an Account
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" id="registerForm" autocomplete="off">
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ field.label }}: {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Username</label>
+                        <input name="username" type="text" class="form-control" id="inputName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputEmail3" class="form-label">Email</label>
+                        <input name="email" type="email" class="form-control" id="inputEmail3" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputPassword3" class="form-label">Password</label>
+                        <input name="password1" type="password" class="form-control" id="inputPassword3" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputVerify3" class="form-label">Confirm Password</label>
+                        <input name="password2" type="password" class="form-control" id="inputVerify3" required>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <a href="{% url 'blog:login' %}" class="text-decoration-none small">
+                            Already have an account?
+                        </a>
+                        <button type="submit" class="btn btn-dark px-4">
+                            <i class="fas fa-user-check me-2"></i>Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

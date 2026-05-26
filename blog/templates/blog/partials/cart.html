@@ -1,0 +1,295 @@
+{% extends 'blog/parents/base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block head %}
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+body{
+    background:#f8fafc;
+    font-family:'Poppins',sans-serif;
+}
+
+a{
+    text-decoration:none;
+}
+
+/* ================= CART CARD ================= */
+
+.cart-wrapper{
+    max-width:1100px;
+    margin:50px auto;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.08);
+}
+
+/* LEFT SIDE */
+
+.cart-left{
+    padding:30px;
+    background:#ffffff;
+}
+
+/* RIGHT SIDE */
+
+.cart-right{
+    padding:30px;
+    background:linear-gradient(135deg,#ffffff,#787f8a);
+    color:#000000;
+}
+
+/* PRODUCT ROW */
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+/* IMAGE */
+
+.cart-item img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* QUANTITY BUTTONS */
+
+.qty-btn{
+    padding:5px 10px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    background:#f1f5f9;
+    font-weight:700;
+}
+
+/* SUMMARY BOX */
+
+.summary-box{
+    background:rgba(255,255,255,0.08);
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+}
+
+/* CHECKOUT BUTTON */
+
+.checkout-btn{
+    width:100%;
+    padding:14px;
+    background:#3b82f6;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-weight:700;
+    margin-top:20px;
+    transition:0.3s;
+}
+
+.checkout-btn:hover{
+    background:#2563eb;
+    transform:translateY(-2px);
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="cart-wrapper">
+
+    <div class="row m-0">
+
+        <!-- ================= LEFT CART ================= -->
+
+        <div class="col-md-8 cart-left">
+
+            <h3 style="font-weight:800;">Shopping Cart</h3>
+
+            <p style="color:#6b7280;">
+                {{ order.get_total_products }} items in your cart
+            </p>
+
+            {% for item in items %}
+
+            <div class="cart-item">
+
+                <!-- IMAGE -->
+                <a href="{{ item.product.get_absolute_url }}">
+                    <img src="{{ item.product.image.url }}">
+                </a>
+
+                <!-- TITLE -->
+                <div style="flex:1; margin-left:15px;">
+
+                    <h6 style="margin:0; font-weight:700;">
+                        {{ item.product.title }}
+                    </h6>
+
+                    <small style="color:#6b7280;">
+                        {{ item.product.description|truncatechars:30 }}
+                    </small>
+
+                </div>
+
+                <!-- QTY -->
+                <div style="display:flex; align-items:center; gap:8px;">
+
+                    <a class="update-item qty-btn"
+                       data-product="{{ item.product.id }}"
+                       data-action="remove">-</a>
+
+                    <span style="font-weight:700;">
+                        {{ item.quantity }}
+                    </span>
+
+                    <a class="update-item qty-btn"
+                       data-product="{{ item.product.id }}"
+                       data-action="add">+</a>
+
+                </div>
+
+                <!-- PRICE -->
+                <div style="text-align:right; font-weight:800;">
+
+                    ${{ item.get_total_price|floatformat:2 }}
+
+                    <a class="update-item"
+                       data-product="{{ item.product.id }}"
+                       data-action="delete"
+                       style="color:red; margin-left:10px;">
+                        ✕
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            <div style="margin-top:20px;">
+                <a href="{% url 'blog:home' %}" style="color:#3b82f6; font-weight:700;">
+                    ← Back to Shop
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ================= RIGHT SUMMARY ================= -->
+
+        <div class="col-md-4 cart-right">
+
+            <h4 style="font-weight:800;">Summary</h4>
+
+            <div class="summary-box">
+
+                <p>{{ order.get_total_products }} ITEMS</p>
+
+                <p style="font-weight:700;">
+                    Total: ${{ order.get_total_price|floatformat:2 }}
+                </p>
+
+            </div>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <p style="margin-top:20px;">Shipping</p>
+
+                <select name="delivery"
+                        style="
+                            width:100%;
+                            padding:10px;
+                            border-radius:10px;
+                        ">
+
+                    {% for item in delivery %}
+                        <option>{{ item.name }} - ${{ item.price }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <p style="margin-top:15px;">Coupon Code</p>
+
+                <input type="text"
+                       name="code"
+                       placeholder="Enter code"
+                       style="
+                            width:100%;
+                            padding:10px;
+                            border-radius:10px;
+                       ">
+
+                <button type="submit"
+                        style="
+                            width:100%;
+                            margin-top:15px;
+                            padding:12px;
+                            background:#22c55e;
+                            color:#fff;
+                            border:none;
+                            border-radius:10px;
+                            font-weight:700;
+                        ">
+                    Apply
+                </button>
+
+            </form>
+
+            <a href="{% if order_items_count == 0 %}{% url 'blog:cart' %}{% else %}{% url 'blog:checkout' %}{% endif %}">
+
+                <button class="checkout-btn">
+                    PROCEED TO CHECKOUT
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+const updateUrl = "{% url 'blog:update_item' %}";
+
+let updateBtns = document.getElementsByClassName('update-item');
+
+for (let i = 0; i < updateBtns.length; i++) {
+    updateBtns[i].addEventListener('click', function () {
+
+        let productId = this.dataset.product;
+        let action = this.dataset.action;
+
+        fetch(updateUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({
+                productId: productId,
+                action: action
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Updated:", data);
+            location.reload();
+        });
+
+    });
+}
+</script>
+{% endblock %}
